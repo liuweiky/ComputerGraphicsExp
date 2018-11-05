@@ -39,7 +39,7 @@
     <ClInclude Include="CPointsMememto.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SetColorDiaglog.h">
+    <ClInclude Include="SetColorDialog.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,7 +62,7 @@
     <ClCompile Include="CPointsMememto.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SetColorDiaglog.cpp">
+    <ClCompile Include="SetColorDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
