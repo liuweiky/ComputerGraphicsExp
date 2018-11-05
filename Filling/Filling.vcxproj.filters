@@ -36,6 +36,12 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CPointsMememto.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SetColorDiaglog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Filling.cpp">
@@ -51,6 +57,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="FillingView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CPointsMememto.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SetColorDiaglog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -183,19 +183,23 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CPointsMememto.h" />
     <ClInclude Include="Filling.h" />
     <ClInclude Include="FillingDoc.h" />
     <ClInclude Include="FillingView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SetColorDiaglog.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CPointsMememto.cpp" />
     <ClCompile Include="Filling.cpp" />
     <ClCompile Include="FillingDoc.cpp" />
     <ClCompile Include="FillingView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="SetColorDiaglog.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
