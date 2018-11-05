@@ -12,6 +12,15 @@ CPoint3::CPoint3(double initX, double initY, double initZ)
 	x = initX; y = initY; z = initZ;
 }
 
+CPoint3 & CPoint3::operator=(const CPoint3 & pt)
+{
+	// TODO: 在此处插入 return 语句
+	x = pt.x;
+	y = pt.y;
+	z = pt.z;
+	return *this;
+}
+
 CPoint3::~CPoint3()
 {
 }
