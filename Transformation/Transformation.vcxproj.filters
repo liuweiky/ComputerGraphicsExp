@@ -39,6 +39,9 @@
     <ClInclude Include="CPoint3.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SelectAxisDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transformation.cpp">
@@ -57,6 +60,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CPoint3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectAxisDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
