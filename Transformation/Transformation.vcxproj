@@ -187,6 +187,7 @@
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SelectAxisDialog.h" />
+    <ClInclude Include="SetProjCenter.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Transformation.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="CPoint3.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="SelectAxisDialog.cpp" />
+    <ClCompile Include="SetProjCenter.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -42,6 +42,9 @@
     <ClInclude Include="SelectAxisDialog.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SetProjCenter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transformation.cpp">
@@ -63,6 +66,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SelectAxisDialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SetProjCenter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
