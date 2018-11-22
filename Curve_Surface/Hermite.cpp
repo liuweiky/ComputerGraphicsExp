@@ -27,9 +27,9 @@ void Hermite::OnLButtonUp(UINT nFlags, CPoint point)
 		pen.CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
 		oldPen = dc.SelectObject(&pen);
 		CArray<COpPoint, COpPoint&> points;
-		GetPoints(2000, m_ptControlPoints, points);
+		GetPoints(LINE_POINTS, m_ptControlPoints, points);
 		dc.MoveTo(m_ptControlPoints.GetAt(0));
-		for (int i = 1; i < 2000; i++)
+		for (int i = 1; i < LINE_POINTS; i++)
 		{
 			COpPoint point = points.GetAt(i);
 			dc.LineTo((CPoint)point);
@@ -85,9 +85,9 @@ void Hermite::ReDraw()
 		pen.CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
 		oldPen = dc.SelectObject(&pen);
 		CArray<COpPoint, COpPoint&> pts;
-		GetPoints(2000, *points, pts);
+		GetPoints(LINE_POINTS, *points, pts);
 		dc.MoveTo(points->GetAt(0));
-		for (int i = 1; i < 2000; i++)
+		for (int i = 1; i < LINE_POINTS; i++)
 		{
 			COpPoint point = pts.GetAt(i);
 			dc.LineTo((CPoint)point);

@@ -3,6 +3,7 @@
 #include "COpPoint.h"
 
 #define N 3
+#define LINE_POINTS 2500
 
 class Hermite :
 	public DrawType
