@@ -76,6 +76,31 @@ void BSpline::OnMouseMove(UINT nFlags, CPoint point)
 
 void BSpline::ReDraw()
 {
+	for (int i = 0; i < m_HistoryPointSets.GetSize(); i++)
+	{
+		CArray<COpPoint, COpPoint&>* points = (CArray<COpPoint, COpPoint&>*) m_HistoryPointSets.GetAt(i);
+		CClientDC dc(m_pView);
+
+		dc.MoveTo((CPoint)points->GetAt(0));
+
+		for (int j = 1; j < points->GetSize(); j++)
+		{
+			dc.LineTo((CPoint)points->GetAt(j));
+		}
+
+		CPen pen, *oldPen;
+		pen.CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+		oldPen = dc.SelectObject(&pen);
+		CArray<COpPoint, COpPoint&> pts;
+		GetPoints(LINE_POINTS, *points, pts);
+		dc.MoveTo(points->GetAt(0));
+		for (int i = 1; i < LINE_POINTS; i++)
+		{
+			COpPoint point = pts.GetAt(i);
+			dc.LineTo((CPoint)point);
+		}
+		dc.SelectObject(oldPen);
+	}
 }
 
 
