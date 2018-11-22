@@ -130,7 +130,7 @@ COpPoint BSpline::Deboor(CArray<COpPoint, COpPoint&>& control, double u, int j)
 {
 	// TODO: 在此处添加实现代码.
 	double denom, alpha;
-	COpPoint* P = new COpPoint[K];
+	COpPoint P[K];
 	const double epsilon = 0.0005;
 	for (int i = 0; i < K; i++)
 		P[i] = control.GetAt(j - K + 1 + i);
