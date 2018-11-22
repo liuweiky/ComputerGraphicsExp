@@ -36,7 +36,8 @@ END_MESSAGE_MAP()
 CCurveSurfaceView::CCurveSurfaceView() noexcept
 {
 	// TODO: 在此处添加构造代码
-	type = new Hermite(this);
+	// type = new Hermite(this);
+	type = new Bezier(this);
 }
 
 CCurveSurfaceView::~CCurveSurfaceView()
