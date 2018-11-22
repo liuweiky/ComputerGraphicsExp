@@ -28,7 +28,7 @@ void Hermite::OnLButtonUp(UINT nFlags, CPoint point)
 		oldPen = dc.SelectObject(&pen);
 		CArray<COpPoint, COpPoint&> points;
 		GetPoints(LINE_POINTS, m_ptControlPoints, points);
-		dc.MoveTo(m_ptControlPoints.GetAt(0));
+		dc.MoveTo(points.GetAt(0));
 		for (int i = 1; i < LINE_POINTS; i++)
 		{
 			COpPoint point = points.GetAt(i);

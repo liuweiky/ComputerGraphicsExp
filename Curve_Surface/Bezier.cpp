@@ -22,7 +22,7 @@ void Bezier::OnLButtonDown(UINT nFlags, CPoint point)
 
 void Bezier::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	if (m_ptControlPoints.GetSize() == N + 1)
+	if (m_ptControlPoints.GetSize() == BEN + 1)
 	{
 		m_bLButtonDown = false;
 		CArray<COpPoint, COpPoint&> points;
@@ -32,7 +32,7 @@ void Bezier::OnLButtonUp(UINT nFlags, CPoint point)
 		CPen pen, *oldPen;
 		pen.CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
 		oldPen = dc.SelectObject(&pen);
-		dc.MoveTo(m_ptControlPoints.GetAt(0));
+		dc.MoveTo(points.GetAt(0));
 		for (int i = 1; i < LINE_POINTS; i++)
 		{
 			COpPoint point = points.GetAt(i);
