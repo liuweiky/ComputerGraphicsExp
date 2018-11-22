@@ -26,6 +26,9 @@ BEGIN_MESSAGE_MAP(CCurveSurfaceView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CCurveSurfaceView 构造/析构
@@ -33,7 +36,7 @@ END_MESSAGE_MAP()
 CCurveSurfaceView::CCurveSurfaceView() noexcept
 {
 	// TODO: 在此处添加构造代码
-
+	type = new Hermite(this);
 }
 
 CCurveSurfaceView::~CCurveSurfaceView()
@@ -58,6 +61,7 @@ void CCurveSurfaceView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: 在此处为本机数据添加绘制代码
+	type->ReDraw();
 }
 
 
@@ -102,3 +106,27 @@ CCurveSurfaceDoc* CCurveSurfaceView::GetDocument() const // 非调试版本是�
 
 
 // CCurveSurfaceView 消息处理程序
+
+
+void CCurveSurfaceView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	type->OnLButtonDown(nFlags, point);
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CCurveSurfaceView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	type->OnLButtonUp(nFlags, point);
+	CView::OnLButtonUp(nFlags, point);
+}
+
+
+void CCurveSurfaceView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	type->OnMouseMove(nFlags, point);
+	CView::OnMouseMove(nFlags, point);
+}

@@ -36,6 +36,15 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Hermite.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="COpPoint.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Curve_Surface.cpp">
@@ -51,6 +60,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Curve_SurfaceView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Hermite.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="COpPoint.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
