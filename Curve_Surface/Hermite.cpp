@@ -86,7 +86,7 @@ void Hermite::ReDraw()
 		oldPen = dc.SelectObject(&pen);
 		CArray<COpPoint, COpPoint&> pts;
 		GetPoints(LINE_POINTS, *points, pts);
-		dc.MoveTo(points->GetAt(0));
+		dc.MoveTo(pts.GetAt(0));
 		for (int i = 1; i < LINE_POINTS; i++)
 		{
 			COpPoint point = pts.GetAt(i);
