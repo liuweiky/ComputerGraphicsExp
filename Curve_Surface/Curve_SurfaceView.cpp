@@ -37,7 +37,8 @@ CCurveSurfaceView::CCurveSurfaceView() noexcept
 {
 	// TODO: 在此处添加构造代码
 	// type = new Hermite(this);
-	type = new Bezier(this);
+	// type = new Bezier(this);
+	type = new BSpline(this);
 }
 
 CCurveSurfaceView::~CCurveSurfaceView()

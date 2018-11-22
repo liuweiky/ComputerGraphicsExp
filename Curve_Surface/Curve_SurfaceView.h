@@ -7,6 +7,7 @@
 #include "DrawType.h"
 #include "Hermite.h"
 #include "Bezier.h"
+#include "BSpline.h"
 
 
 class CCurveSurfaceView : public CView
