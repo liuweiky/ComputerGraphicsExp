@@ -51,6 +51,12 @@
     <ClInclude Include="BSpline.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BezierSurface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CPoint3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Curve_Surface.cpp">
@@ -81,6 +87,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BSpline.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BezierSurface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CPoint3.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

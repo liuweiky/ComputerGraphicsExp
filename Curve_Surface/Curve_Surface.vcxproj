@@ -184,8 +184,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bezier.h" />
+    <ClInclude Include="BezierSurface.h" />
     <ClInclude Include="BSpline.h" />
     <ClInclude Include="COpPoint.h" />
+    <ClInclude Include="CPoint3.h" />
     <ClInclude Include="Curve_Surface.h" />
     <ClInclude Include="Curve_SurfaceDoc.h" />
     <ClInclude Include="Curve_SurfaceView.h" />
@@ -198,8 +200,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bezier.cpp" />
+    <ClCompile Include="BezierSurface.cpp" />
     <ClCompile Include="BSpline.cpp" />
     <ClCompile Include="COpPoint.cpp" />
+    <ClCompile Include="CPoint3.cpp" />
     <ClCompile Include="Curve_Surface.cpp" />
     <ClCompile Include="Curve_SurfaceDoc.cpp" />
     <ClCompile Include="Curve_SurfaceView.cpp" />

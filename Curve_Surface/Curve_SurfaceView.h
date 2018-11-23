@@ -8,6 +8,7 @@
 #include "Hermite.h"
 #include "Bezier.h"
 #include "BSpline.h"
+#include "BezierSurface.h"
 
 
 class CCurveSurfaceView : public CView
