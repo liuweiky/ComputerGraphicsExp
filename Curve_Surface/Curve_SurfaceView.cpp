@@ -29,6 +29,10 @@ BEGIN_MESSAGE_MAP(CCurveSurfaceView, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
+	ON_COMMAND(ID_BUTTON_HERMITE, &CCurveSurfaceView::OnButtonHermiteClick)
+	ON_COMMAND(ID_BUTTON_BEZIER, &CCurveSurfaceView::OnButtonBezierClick)
+	ON_COMMAND(ID_BUTTON_BSPLINE, &CCurveSurfaceView::OnButtonBsplineClick)
+	ON_COMMAND(ID_BUTTON_BZSURFACE, &CCurveSurfaceView::OnButtonBzsurface)
 END_MESSAGE_MAP()
 
 // CCurveSurfaceView 构造/析构
@@ -36,10 +40,10 @@ END_MESSAGE_MAP()
 CCurveSurfaceView::CCurveSurfaceView() noexcept
 {
 	// TODO: 在此处添加构造代码
-	// type = new Hermite(this);
+	type = new Hermite(this);
 	// type = new Bezier(this);
 	// type = new BSpline(this);
-	type = new BezierSurface(this);
+	// type = new BezierSurface(this);
 }
 
 CCurveSurfaceView::~CCurveSurfaceView()
@@ -132,4 +136,89 @@ void CCurveSurfaceView::OnMouseMove(UINT nFlags, CPoint point)
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	type->OnMouseMove(nFlags, point);
 	CView::OnMouseMove(nFlags, point);
+}
+
+
+void CCurveSurfaceView::OnButtonHermiteClick()
+{
+	// TODO: 在此添加命令处理程序代码
+	if (type != NULL)
+	{
+		delete type;
+	}
+	type = new Hermite(this);
+	Clear();
+}
+
+
+void CCurveSurfaceView::OnButtonBezierClick()
+{
+	// TODO: 在此添加命令处理程序代码
+	if (type != NULL)
+	{
+		delete type;
+	}
+	type = new Bezier(this);
+	Clear();
+}
+
+
+void CCurveSurfaceView::OnButtonBsplineClick()
+{
+	// TODO: 在此添加命令处理程序代码
+	if (type != NULL)
+	{
+		delete type;
+	}
+	type = new BSpline(this);
+	Clear();
+}
+
+
+void CCurveSurfaceView::OnButtonBzsurface()
+{
+	// TODO: 在此添加命令处理程序代码
+	if (type != NULL)
+	{
+		delete type;
+	}
+	type = new BezierSurface(this);
+	Clear();
+	SetPointsDialog dialog;
+	BezierSurface* bs = (BezierSurface*)type;
+	if (dialog.DoModal() == IDOK)
+	{
+		bs->m_ptControlPoints[0] = CPoint3(dialog.p11x, dialog.p11y, dialog.p11z);
+		bs->m_ptControlPoints[1] = CPoint3(dialog.p12x, dialog.p12y, dialog.p12z);
+		bs->m_ptControlPoints[2] = CPoint3(dialog.p13x, dialog.p13y, dialog.p13z);
+		bs->m_ptControlPoints[3] = CPoint3(dialog.p14x, dialog.p14y, dialog.p14z);
+
+		bs->m_ptControlPoints[4] = CPoint3(dialog.p21x, dialog.p21y, dialog.p21z);
+		bs->m_ptControlPoints[5] = CPoint3(dialog.p22x, dialog.p22y, dialog.p22z);
+		bs->m_ptControlPoints[6] = CPoint3(dialog.p23x, dialog.p23y, dialog.p23z);
+		bs->m_ptControlPoints[7] = CPoint3(dialog.p24x, dialog.p24y, dialog.p24z);
+
+		bs->m_ptControlPoints[8] = CPoint3(dialog.p31x, dialog.p31y, dialog.p31z);
+		bs->m_ptControlPoints[9] = CPoint3(dialog.p32x, dialog.p32y, dialog.p32z);
+		bs->m_ptControlPoints[10] = CPoint3(dialog.p33x, dialog.p33y, dialog.p33z);
+		bs->m_ptControlPoints[11] = CPoint3(dialog.p34x, dialog.p34y, dialog.p34z);
+
+		bs->m_ptControlPoints[12] = CPoint3(dialog.p41x, dialog.p41y, dialog.p41z);
+		bs->m_ptControlPoints[13] = CPoint3(dialog.p42x, dialog.p42y, dialog.p42z);
+		bs->m_ptControlPoints[14] = CPoint3(dialog.p43x, dialog.p43y, dialog.p43z);
+		bs->m_ptControlPoints[15] = CPoint3(dialog.p44x, dialog.p44y, dialog.p44z);
+	}
+	type->ReDraw();
+}
+
+
+void CCurveSurfaceView::Clear()
+{
+	// TODO: 在此处添加实现代码.
+	CClientDC dc(this);
+	CRect window;
+	GetClientRect(window);
+	dc.SelectStockObject(WHITE_PEN);
+	dc.SelectStockObject(WHITE_BRUSH);
+	dc.Rectangle(window);
 }

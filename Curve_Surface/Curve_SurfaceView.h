@@ -10,6 +10,8 @@
 #include "BSpline.h"
 #include "BezierSurface.h"
 
+#include "SetPointsDialog.h"
+
 
 class CCurveSurfaceView : public CView
 {
@@ -53,6 +55,11 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnButtonHermiteClick();
+	afx_msg void OnButtonBezierClick();
+	afx_msg void OnButtonBsplineClick();
+	afx_msg void OnButtonBzsurface();
+	void Clear();
 };
 
 #ifndef _DEBUG  // Curve_SurfaceView.cpp 中的调试版本

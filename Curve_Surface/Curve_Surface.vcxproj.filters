@@ -57,6 +57,9 @@
     <ClInclude Include="CPoint3.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SetPointsDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Curve_Surface.cpp">
@@ -93,6 +96,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CPoint3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SetPointsDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
