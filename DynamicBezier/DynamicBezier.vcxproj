@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="COpPoint.h" />
     <ClInclude Include="DynamicBezier.h" />
     <ClInclude Include="DynamicBezierDoc.h" />
     <ClInclude Include="DynamicBezierView.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="COpPoint.cpp" />
     <ClCompile Include="DynamicBezier.cpp" />
     <ClCompile Include="DynamicBezierDoc.cpp" />
     <ClCompile Include="DynamicBezierView.cpp" />

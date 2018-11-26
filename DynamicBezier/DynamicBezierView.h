@@ -4,6 +4,10 @@
 
 #pragma once
 
+#include "COpPoint.h"
+
+#define N 3
+#define LINE_POINTS 200
 
 class CDynamicBezierView : public CView
 {
@@ -40,6 +44,31 @@ protected:
 // 生成的消息映射函数
 protected:
 	DECLARE_MESSAGE_MAP()
+
+public:
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+
+public:
+	CArray<COpPoint, COpPoint&> m_ptControlPoints;
+	CArray<int, int> m_nDir;
+	COpPoint m_StartPoint;
+	COpPoint m_EndPoint;
+
+	bool m_bLButtonDown;
+	bool m_bHasInputFinished;
+	
+	void Clear();
+	void RefreshView();
+
+	CArray<COpPoint, COpPoint&>& GetPoints(int n, CArray<COpPoint, COpPoint&>& control, CArray<COpPoint, COpPoint&>& points);
+	// 根据控制点 control，获得 t 处坐标值
+	COpPoint Decas(CArray<COpPoint, COpPoint&>& control, double t);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnButtonStartClick();
+	afx_msg void OnButtonPauseClick();
 };
 
 #ifndef _DEBUG  // DynamicBezierView.cpp 中的调试版本
