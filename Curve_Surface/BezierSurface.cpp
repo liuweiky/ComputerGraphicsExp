@@ -66,9 +66,11 @@ void BezierSurface::OnMouseMove(UINT nFlags, CPoint point)
 {
 }
 
-// 未进行屏幕 y 坐标颠倒操作
 void BezierSurface::ReDraw()
 {
+	
+	CRect rect;
+	m_pView->GetClientRect(&rect);
 	CClientDC dc(m_pView);
 	CPoint3 v;
 	double vz;
@@ -84,6 +86,11 @@ void BezierSurface::ReDraw()
 
 	for (i = 0; i < (N + 1) * (N + 1); i++)
 		PlaneCtrlPoint[i] = World2View(m_ptControlPoints[i], v, vz);	// 控制点转为屏幕坐标
+
+	// y 轴颠倒方向
+	for (i = 0; i < (N + 1) * (N + 1); i++)
+		PlaneCtrlPoint[i].y = rect.Height() - PlaneCtrlPoint[i].y;
+
 	for (i = 0; i <= N; i++)
 		dc.Polyline(&PlaneCtrlPoint[i * (N + 1)], N + 1);	// 一个方向
 	Transpose(PlaneCtrlPoint, N + 1);	// 转置
@@ -97,6 +104,11 @@ void BezierSurface::ReDraw()
 
 	for (i = 0; i < (npoints + 1) * (npoints + 1); i++)		
 		PlaneMeshPoint[i] = World2View(MeshPoint[i], v, vz);
+
+	// y 轴颠倒方向
+	for (i = 0; i < (npoints + 1) * (npoints + 1); i++)
+		PlaneMeshPoint[i].y = rect.Height() - PlaneMeshPoint[i].y;
+
 	for (i = 0; i <= npoints; i++)
 		dc.Polyline(&PlaneMeshPoint[i * (npoints + 1)], npoints + 1);// 一个方向
 	Transpose(PlaneMeshPoint, npoints + 1);// 转置
