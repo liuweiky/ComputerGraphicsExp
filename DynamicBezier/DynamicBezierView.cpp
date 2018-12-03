@@ -276,7 +276,7 @@ void CDynamicBezierView::OnTimer(UINT_PTR nIDEvent)
 		COpPoint& point = m_ptControlPoints.GetAt(i);
 		if (i % 2 == 0)
 		{
-			point.y += m_nDir.GetAt(i) * 3 * i;
+			point.y += m_nDir.GetAt(i) * 3 * (i + 1);
 			if (point.y >= rect.Height())
 			{
 				point.y = rect.Height();
@@ -290,7 +290,7 @@ void CDynamicBezierView::OnTimer(UINT_PTR nIDEvent)
 		}
 		else
 		{
-			point.x += m_nDir.GetAt(i) * 3 * i;
+			point.x += m_nDir.GetAt(i) * 3 * (i + 1);
 			if (point.x >= rect.Width())
 			{
 				point.x = rect.Width();
