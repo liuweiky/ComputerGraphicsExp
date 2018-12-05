@@ -187,6 +187,7 @@
     <ClInclude Include="BSpline3DDoc.h" />
     <ClInclude Include="BSpline3DView.h" />
     <ClInclude Include="COpPoint.h" />
+    <ClInclude Include="CPoint3.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="BSpline3DDoc.cpp" />
     <ClCompile Include="BSpline3DView.cpp" />
     <ClCompile Include="COpPoint.cpp" />
+    <ClCompile Include="CPoint3.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

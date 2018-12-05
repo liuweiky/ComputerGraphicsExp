@@ -5,10 +5,17 @@
 #pragma once
 
 #include "COpPoint.h"
+#include "CPoint3.h"
+#include <vector>
 
 #define MAX_N 102400
 #define K 4
 #define LINE_POINTS 2500
+#define DIVISION 36
+
+#define BSPLINE_RGB 1
+#define BSPLINE_SYMMETRY 2
+#define BSPLINE_3D 3
 
 class CBSpline3DView : public CView
 {
@@ -56,6 +63,10 @@ public:
 	double m_fKnot[MAX_N + K + 1];
 	bool m_bLButtonDown;
 	bool m_bHasInputFinished;
+	double m_pjMatrix[4][4];
+
+	CPoint3 m_pt3DPointsSet[DIVISION][LINE_POINTS];
+	CPoint m_pt2DPointsSet[DIVISION][LINE_POINTS];
 
 	void Clear();
 
@@ -67,6 +78,10 @@ public:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	void ReDraw();
 	void DrawSymmetry();
+	void DrawCabinet();
+	void Get2DPointsSet();
+	void Get3DPointsSet();
+	void DrawProjPoints();
 };
 
 #ifndef _DEBUG  // BSpline3DView.cpp 中的调试版本

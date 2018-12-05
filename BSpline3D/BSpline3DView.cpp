@@ -240,6 +240,9 @@ void CBSpline3DView::ReDraw()
 			dc.LineTo((CPoint)point);
 			dc.SelectObject(oldPen);
 		}
+
+		DrawSymmetry();
+		DrawCabinet();
 	}
 }
 
@@ -247,4 +250,132 @@ void CBSpline3DView::ReDraw()
 void CBSpline3DView::DrawSymmetry()
 {
 	// TODO: 在此处添加实现代码.
+	CClientDC dc(this);
+	CArray<COpPoint, COpPoint&> pts;
+	CArray<COpPoint, COpPoint&> ptSymmetry;
+	GetPoints(LINE_POINTS, m_ptControlPoints, pts);
+	for (int i = 0; i < pts.GetSize(); i++)
+	{
+		COpPoint p = pts.GetAt(i);
+		COpPoint sp = CPoint(2 * m_ptControlPoints.GetAt(0).x - p.x, p.y);
+		sp.color = p.color;
+		ptSymmetry.Add(sp);
+	}
+	dc.MoveTo(pts.GetAt(0));
+	for (int i = 1; i < LINE_POINTS; i++)
+	{
+		COpPoint point = pts.GetAt(i);
+		CPen pen, *oldPen;
+		pen.CreatePen(PS_SOLID, 2, m_cRGB[point.color]);
+		oldPen = dc.SelectObject(&pen);
+		dc.LineTo((CPoint)point);
+		dc.SelectObject(oldPen);
+	}
+	dc.MoveTo(ptSymmetry.GetAt(0));
+	for (int i = 1; i < LINE_POINTS; i++)
+	{
+		COpPoint point = ptSymmetry.GetAt(i);
+		CPen pen, *oldPen;
+		pen.CreatePen(PS_SOLID, 2, m_cRGB[point.color]);
+		oldPen = dc.SelectObject(&pen);
+		dc.LineTo((CPoint)point);
+		dc.SelectObject(oldPen);
+	}
+}
+
+void CBSpline3DView::DrawCabinet()
+{
+	// TODO: 在此处添加实现代码.
+
+	Clear();
+	double theta = 1.107;
+	double l = 0.5;
+	m_pjMatrix[0][0] = 1; m_pjMatrix[0][1] = 0; m_pjMatrix[0][2] = l * cos(theta);	m_pjMatrix[0][3] = 0;
+	m_pjMatrix[1][0] = 0; m_pjMatrix[1][1] = 1; m_pjMatrix[1][2] = l * sin(theta);	m_pjMatrix[1][3] = 0;
+	m_pjMatrix[2][0] = 0; m_pjMatrix[2][1] = 0; m_pjMatrix[2][2] = 0;				m_pjMatrix[2][3] = 0;
+	m_pjMatrix[3][0] = 0; m_pjMatrix[3][1] = 0; m_pjMatrix[3][2] = 0;				m_pjMatrix[3][3] = 1;
+	Get3DPointsSet();
+	DrawProjPoints();
+}
+
+void CBSpline3DView::Get2DPointsSet()
+{
+	for (int i = 0; i < DIVISION; i++)
+	{
+		for (int j = 0; j < LINE_POINTS; j++)
+		{
+			double h;
+			CPoint point;
+			CPoint3 point3D = m_pt3DPointsSet[i][j];
+			point.x = point3D.x * m_pjMatrix[0][0] + point3D.y * m_pjMatrix[0][1] + point3D.z * m_pjMatrix[0][2] + m_pjMatrix[0][3];
+			point.y = point3D.x * m_pjMatrix[1][0] + point3D.y * m_pjMatrix[1][1] + point3D.z * m_pjMatrix[1][2] + m_pjMatrix[1][3];
+			h = point3D.x * m_pjMatrix[3][0] + point3D.y * m_pjMatrix[3][1] + point3D.z * m_pjMatrix[3][2] + m_pjMatrix[3][3];
+			point.x /= h;
+			point.y /= h;
+			m_pt2DPointsSet[i][j] = point;
+		}
+	}
+}
+
+void CBSpline3DView::Get3DPointsSet()
+{
+	CArray<COpPoint, COpPoint&> pts;
+	GetPoints(LINE_POINTS, m_ptControlPoints, pts);
+	for (int j = 0; j < LINE_POINTS; j++)
+	{
+		CPoint3 point;
+		point.x = pts.GetAt(j).x;
+		point.y = pts.GetAt(j).y;
+		point.z = 0;
+		m_pt3DPointsSet[0][j] = point;
+	}
+	
+	for (int i = 1; i < DIVISION; i++)
+	{
+		double theta = 2 * 3.14159265 / DIVISION * i;
+
+		for (int j = 0; j < LINE_POINTS; j++)
+		{
+			CPoint3 point;
+			m_pt3DPointsSet[0][j].x -= m_ptControlPoints.GetAt(0).x;
+			point.z = m_pt3DPointsSet[0][j].z * cos(theta) - m_pt3DPointsSet[0][j].x * sin(theta);
+			point.x = m_pt3DPointsSet[0][j].z * sin(theta) + m_pt3DPointsSet[0][j].x * cos(theta);
+			point.y = m_pt3DPointsSet[0][j].y;
+			m_pt3DPointsSet[i][j] = point;
+			m_pt3DPointsSet[i][j].x += m_ptControlPoints.GetAt(0).x;
+			m_pt3DPointsSet[0][j].x += m_ptControlPoints.GetAt(0).x;
+		}
+	}
+
+}
+
+void CBSpline3DView::DrawProjPoints()
+{
+	Get2DPointsSet();
+	for (int i = 0; i < DIVISION; i++)
+	{
+		CClientDC dc(this);
+		dc.MoveTo(m_pt2DPointsSet[i][0]);
+		for (int j = 0; j < LINE_POINTS; j++)
+		{
+			dc.LineTo(m_pt2DPointsSet[i][j]);
+		}
+	}
+
+	CClientDC dc(this);
+	dc.MoveTo(m_pt2DPointsSet[0][0]);
+
+	for (int i = 0; i <= DIVISION; i++)
+	{
+	
+		dc.LineTo(m_pt2DPointsSet[i % DIVISION][0]);
+	}
+
+	dc.MoveTo(m_pt2DPointsSet[0][LINE_POINTS - 1]);
+
+	for (int i = 0; i <= DIVISION; i++)
+	{
+
+		dc.LineTo(m_pt2DPointsSet[i % DIVISION][LINE_POINTS - 1]);
+	}
 }
