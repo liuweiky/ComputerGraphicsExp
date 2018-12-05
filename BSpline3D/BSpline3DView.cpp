@@ -29,6 +29,9 @@ BEGIN_MESSAGE_MAP(CBSpline3DView, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_MOUSEMOVE()
+	ON_COMMAND(ID_BUTTONBSPLINE, &CBSpline3DView::OnButtonBSplineClick)
+	ON_COMMAND(ID_BUTTONSYMMETRY, &CBSpline3DView::OnButtonSymmetryClick)
+	ON_COMMAND(ID_BUTTON3D, &CBSpline3DView::OnButton3dClick)
 END_MESSAGE_MAP()
 
 // CBSpline3DView 构造/析构
@@ -44,6 +47,7 @@ CBSpline3DView::CBSpline3DView() noexcept
 	m_cRGB[0] = RGB(255, 0, 0);
 	m_cRGB[1] = RGB(0, 255, 0);
 	m_cRGB[2] = RGB(0, 0, 255);
+	m_nType = TYPE_INPUT;
 }
 
 CBSpline3DView::~CBSpline3DView()
@@ -218,39 +222,44 @@ COpPoint CBSpline3DView::Deboor(CArray<COpPoint, COpPoint&>& control, double u, 
 void CBSpline3DView::ReDraw()
 {
 	// TODO: 在此处添加实现代码.
-	Clear();
-	if (m_ptControlPoints.GetSize() >= 4)
+	switch (m_nType)
 	{
-		CClientDC dc(this);
-		dc.MoveTo(m_ptControlPoints.GetAt(0));
-		for (int i = 1; i < m_ptControlPoints.GetSize(); i++)
-		{
-			dc.LineTo(m_ptControlPoints.GetAt(i));
-		}
-		
-		CArray<COpPoint, COpPoint&> pts;
-		GetPoints(LINE_POINTS, m_ptControlPoints, pts);
-		dc.MoveTo(pts.GetAt(0));
-		for (int i = 1; i < LINE_POINTS; i++)
-		{
-			COpPoint point = pts.GetAt(i);
-			CPen pen, *oldPen;
-			pen.CreatePen(PS_SOLID, 2, m_cRGB[point.color]);
-			oldPen = dc.SelectObject(&pen);
-			dc.LineTo((CPoint)point);
-			dc.SelectObject(oldPen);
-		}
-
+	case TYPE_BSPLINE:
+		DrawBSpline();
+		break;
+	case TYPE_SYMMETRY:
 		DrawSymmetry();
+		break;
+	case TYPE_ROTATE:
 		DrawCabinet();
+		break;
+	default:
+		break;
 	}
 }
+
 
 
 void CBSpline3DView::DrawSymmetry()
 {
 	// TODO: 在此处添加实现代码.
+	Clear();
+	if (m_ptControlPoints.GetSize() < 1)
+		return;
 	CClientDC dc(this);
+
+	dc.MoveTo(m_ptControlPoints.GetAt(0));
+	for (int i = 1; i < m_ptControlPoints.GetSize(); i++)
+	{
+		dc.LineTo(m_ptControlPoints.GetAt(i));
+	}
+	dc.MoveTo(m_ptControlPoints.GetAt(0));
+	for (int i = 1; i < m_ptControlPoints.GetSize(); i++)
+	{
+		COpPoint sp = CPoint(2 * m_ptControlPoints.GetAt(0).x - m_ptControlPoints.GetAt(i).x, m_ptControlPoints.GetAt(i).y);
+		dc.LineTo(sp);
+	}
+
 	CArray<COpPoint, COpPoint&> pts;
 	CArray<COpPoint, COpPoint&> ptSymmetry;
 	GetPoints(LINE_POINTS, m_ptControlPoints, pts);
@@ -281,13 +290,15 @@ void CBSpline3DView::DrawSymmetry()
 		dc.LineTo((CPoint)point);
 		dc.SelectObject(oldPen);
 	}
+	
 }
 
 void CBSpline3DView::DrawCabinet()
 {
 	// TODO: 在此处添加实现代码.
-
 	Clear();
+	if (m_ptControlPoints.GetSize() < 1)
+		return;
 	double theta = 1.107;
 	double l = 0.5;
 	m_pjMatrix[0][0] = 1; m_pjMatrix[0][1] = 0; m_pjMatrix[0][2] = l * cos(theta);	m_pjMatrix[0][3] = 0;
@@ -378,4 +389,57 @@ void CBSpline3DView::DrawProjPoints()
 
 		dc.LineTo(m_pt2DPointsSet[i % DIVISION][LINE_POINTS - 1]);
 	}
+}
+
+void CBSpline3DView::DrawBSpline()
+{
+	Clear();
+	if (m_ptControlPoints.GetSize() >= 4)
+	{
+		CClientDC dc(this);
+		dc.MoveTo(m_ptControlPoints.GetAt(0));
+		for (int i = 1; i < m_ptControlPoints.GetSize(); i++)
+		{
+			dc.LineTo(m_ptControlPoints.GetAt(i));
+		}
+
+		CArray<COpPoint, COpPoint&> pts;
+		GetPoints(LINE_POINTS, m_ptControlPoints, pts);
+		dc.MoveTo(pts.GetAt(0));
+		for (int i = 1; i < LINE_POINTS; i++)
+		{
+			COpPoint point = pts.GetAt(i);
+			CPen pen, *oldPen;
+			pen.CreatePen(PS_SOLID, 2, m_cRGB[point.color]);
+			oldPen = dc.SelectObject(&pen);
+			dc.LineTo((CPoint)point);
+			dc.SelectObject(oldPen);
+		}
+
+		
+	}
+}
+
+
+void CBSpline3DView::OnButtonBSplineClick()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_nType = TYPE_BSPLINE;
+	ReDraw();
+}
+
+
+void CBSpline3DView::OnButtonSymmetryClick()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_nType = TYPE_SYMMETRY;
+	ReDraw();
+}
+
+
+void CBSpline3DView::OnButton3dClick()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_nType = TYPE_ROTATE;
+	ReDraw();
 }

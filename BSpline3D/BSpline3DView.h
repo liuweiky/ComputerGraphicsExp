@@ -17,6 +17,11 @@
 #define BSPLINE_SYMMETRY 2
 #define BSPLINE_3D 3
 
+#define TYPE_INPUT 0
+#define TYPE_BSPLINE 1
+#define TYPE_SYMMETRY 3
+#define TYPE_ROTATE 2
+
 class CBSpline3DView : public CView
 {
 protected: // 仅从序列化创建
@@ -65,6 +70,8 @@ public:
 	bool m_bHasInputFinished;
 	double m_pjMatrix[4][4];
 
+	int m_nType;
+
 	CPoint3 m_pt3DPointsSet[DIVISION][LINE_POINTS];
 	CPoint m_pt2DPointsSet[DIVISION][LINE_POINTS];
 
@@ -82,6 +89,10 @@ public:
 	void Get2DPointsSet();
 	void Get3DPointsSet();
 	void DrawProjPoints();
+	void DrawBSpline();
+	afx_msg void OnButtonBSplineClick();
+	afx_msg void OnButtonSymmetryClick();
+	afx_msg void OnButton3dClick();
 };
 
 #ifndef _DEBUG  // BSpline3DView.cpp 中的调试版本
