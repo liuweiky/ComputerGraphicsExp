@@ -4,6 +4,11 @@
 
 #pragma once
 
+#include "COpPoint.h"
+
+#define MAX_N 102400
+#define K 4
+#define LINE_POINTS 2500
 
 class CBSpline3DView : public CView
 {
@@ -40,6 +45,28 @@ protected:
 // 生成的消息映射函数
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+
+	CArray<COpPoint, COpPoint&> m_ptControlPoints;
+	COpPoint m_StartPoint;
+	COpPoint m_EndPoint;
+
+	COLORREF m_cRGB[3];
+
+	double m_fKnot[MAX_N + K + 1];
+	bool m_bLButtonDown;
+	bool m_bHasInputFinished;
+
+	void Clear();
+
+	CArray<COpPoint, COpPoint&>& GetPoints(int n, CArray<COpPoint, COpPoint&>& control, CArray<COpPoint, COpPoint&>& points);
+	COpPoint Deboor(CArray<COpPoint, COpPoint&>& control, double u, int j);
+
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	void ReDraw();
+	void DrawSymmetry();
 };
 
 #ifndef _DEBUG  // BSpline3DView.cpp 中的调试版本
