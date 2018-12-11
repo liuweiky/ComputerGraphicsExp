@@ -138,6 +138,7 @@ void CBSpline3DView::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		m_ptControlPoints.RemoveAll();
 		Clear();
+		m_nType = TYPE_INPUT;
 	}
 	m_bLButtonDown = true;
 	m_ptControlPoints.Add(COpPoint(point));
@@ -151,6 +152,12 @@ void CBSpline3DView::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	m_bLButtonDown = false;
+	COpPoint p = m_ptControlPoints.GetAt(0);
+	m_ptControlPoints.InsertAt(0, p);
+	m_ptControlPoints.InsertAt(0, p);
+	p = m_ptControlPoints.GetAt(m_ptControlPoints.GetSize() - 1);
+	m_ptControlPoints.InsertAt(m_ptControlPoints.GetSize(), p);
+	m_ptControlPoints.InsertAt(m_ptControlPoints.GetSize(), p);
 	ReDraw();
 	CView::OnLButtonDblClk(nFlags, point);
 }
@@ -363,17 +370,23 @@ void CBSpline3DView::Get3DPointsSet()
 void CBSpline3DView::DrawProjPoints()
 {
 	Get2DPointsSet();
+	CArray<COpPoint, COpPoint&> pts;
+	GetPoints(LINE_POINTS, m_ptControlPoints, pts);
 	for (int i = 0; i < DIVISION; i++)
 	{
 		CClientDC dc(this);
 		dc.MoveTo(m_pt2DPointsSet[i][0]);
 		for (int j = 0; j < LINE_POINTS; j++)
 		{
+			CPen pen, *oldPen;
+			pen.CreatePen(PS_SOLID, 2, m_cRGB[pts.GetAt(j).color]);
+			oldPen = dc.SelectObject(&pen);
 			dc.LineTo(m_pt2DPointsSet[i][j]);
+			dc.SelectObject(oldPen);
 		}
 	}
 
-	CClientDC dc(this);
+	/*CClientDC dc(this);
 	dc.MoveTo(m_pt2DPointsSet[0][0]);
 
 	for (int i = 0; i <= DIVISION; i++)
@@ -388,7 +401,7 @@ void CBSpline3DView::DrawProjPoints()
 	{
 
 		dc.LineTo(m_pt2DPointsSet[i % DIVISION][LINE_POINTS - 1]);
-	}
+	}*/
 }
 
 void CBSpline3DView::DrawBSpline()
